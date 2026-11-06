@@ -1,0 +1,10 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "global.azerty/azerty-coach",
+  "title": "AZERTY Coach",
+  "description": "Type any character on a French keyboard and learn AZERTY. Read-only, no account.",
+  "version": "0.1.0",
+  "websiteUrl": "https://azerty.global",
+  "icons": [{ "src": "https://mcp.azerty.global/icon.png", "mimeType": "image/png", "sizes": ["200x200"] }],
+  "remotes": [{ "type": "streamable-http", "url": "https://mcp.azerty.global/mcp" }]
+}

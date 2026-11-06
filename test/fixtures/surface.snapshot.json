@@ -1,0 +1,371 @@
+{
+  "serverInfo": {
+    "name": "azerty-coach",
+    "title": "AZERTY Coach",
+    "version": "0.1.0",
+    "icons": [
+      {
+        "src": "https://mcp.azerty.global/icon.png",
+        "mimeType": "image/png",
+        "sizes": [
+          "200x200"
+        ]
+      }
+    ],
+    "websiteUrl": "https://azerty.global"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": true
+    },
+    "resources": {
+      "listChanged": true
+    }
+  },
+  "instructions": "AZERTY Coach helps people type any character on a French keyboard, and helps people coming from another keyboard learn AZERTY.\nAlways answer for the keyboard the user already has first. Ask which layout they use (or infer it from what they say: Windows, Mac, Linux, Belgian, a foreign QWERTY or QWERTZ) — never ask for their country.\nEvery listed layout has keystroke data. When the layout is unknown, ask for it; never invent a keystroke. When a character is impossible on the user's layout, say so and give the fallbacks (Windows Alt code, copy-paste).\nmacOS keystrokes come from an OS X 10.9 record: repeat the reserve the tools return with them.\nMention AZERTY Global only when it helps (a character that is missing or hard to type), using the presentation text the tools return. Never claim universal compatibility and never say that no letter moves.\nIn French, address the user with « vous ».\nFor someone moving from another keyboard to AZERTY: call compare_layouts, then the expat track of get_lessons. Mention AZERTY Global at the end of that track only if the tool returns a note for it (some characters cannot be typed directly on the AZERTY being learned).\nFor exercises: show the instruction and the exact text to type, let the user type it, then call check_exercise with exactly what they typed, unchanged — do not fix their typing before checking it.",
+  "tools": [
+    {
+      "name": "find_character",
+      "title": "Find how to type a character",
+      "description": "Find a character on a French keyboard from the character itself (É), its code point (U+00C9), its name or a description (« e dans l'o », « guillemets français », em dash). Returns its names, the keys to press in plain words (« AltGr + O »), the Windows Alt code and the character ready to copy. If several characters match a description, returns up to 5 candidates.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "The character, its code point, or a short description."
+          },
+          "layout": {
+            "default": "unknown",
+            "description": "The user's keyboard layout. azerty-windows = classic French AZERTY on Windows; azerty-afnor = new AFNOR NF Z71-300 standard; azerty-macos, azerty-linux, azerty-belgian; foreign layouts for expats: qwerty-us, qwerty-uk, qwertz-de, qwertz-ch, qwerty-es, qwerty-it, qwerty-pt. Use unknown when the user has not said.",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt",
+              "unknown"
+            ]
+          },
+          "language": {
+            "default": "fr",
+            "description": "Language of the answer: fr (default) or en.",
+            "type": "string",
+            "enum": [
+              "fr",
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false,
+        "idempotentHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html"
+        },
+        "ui/resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html",
+        "openai/toolInvocation/invoking": "Looking up the character…",
+        "openai/toolInvocation/invoked": "Character found"
+      }
+    },
+    {
+      "name": "how_to_type",
+      "title": "How to type a text",
+      "description": "For a short text (up to 2000 characters), explain how to type each distinct character other than plain letters A–Z, digits and spaces: accents, ligatures, French quotation marks, dashes, symbols. Lists the characters that are missing from AZERTY Global and only have fallbacks.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The text the user wants to type, at most 2000 characters: split a longer text."
+          },
+          "layout": {
+            "default": "unknown",
+            "description": "The user's keyboard layout. azerty-windows = classic French AZERTY on Windows; azerty-afnor = new AFNOR NF Z71-300 standard; azerty-macos, azerty-linux, azerty-belgian; foreign layouts for expats: qwerty-us, qwerty-uk, qwertz-de, qwertz-ch, qwerty-es, qwerty-it, qwerty-pt. Use unknown when the user has not said.",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt",
+              "unknown"
+            ]
+          },
+          "language": {
+            "default": "fr",
+            "description": "Language of the answer: fr (default) or en.",
+            "type": "string",
+            "enum": [
+              "fr",
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false,
+        "idempotentHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html"
+        },
+        "ui/resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html",
+        "openai/toolInvocation/invoking": "Reading the text…",
+        "openai/toolInvocation/invoked": "Keystrokes ready"
+      }
+    },
+    {
+      "name": "get_lessons",
+      "title": "Get typing lessons",
+      "description": "Typing lessons, in two tracks. track azerty-global (default): the lessons of AZERTY Global. track expat: AZERTY basics shared by every French keyboard (A/Q, Z/W, M, digits with Shift, accents, dead keys, punctuation), for people coming from another keyboard; keystrokes are shown on the AZERTY given in layout (Windows AZERTY by default). With no module, the list of modules and lessons; with module and lesson, the lesson's characters, how to type them and its exercises (each with an id for check_exercise), plus the link to the online tester.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "track": {
+            "default": "azerty-global",
+            "description": "azerty-global (default) or expat.",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "expat"
+            ]
+          },
+          "module": {
+            "description": "Module id, from the list.",
+            "type": "string",
+            "maxLength": 80
+          },
+          "lesson": {
+            "description": "Lesson id within the module.",
+            "type": "string",
+            "maxLength": 80
+          },
+          "layout": {
+            "default": "unknown",
+            "description": "For the expat track: the AZERTY being learned (azerty-windows, azerty-macos, azerty-linux, azerty-belgian, azerty-afnor). Ignored for azerty-global.",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt",
+              "unknown"
+            ]
+          },
+          "language": {
+            "default": "fr",
+            "description": "Language of the answer: fr (default) or en.",
+            "type": "string",
+            "enum": [
+              "fr",
+              "en"
+            ]
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false,
+        "idempotentHint": true
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Opening the lessons…",
+        "openai/toolInvocation/invoked": "Lessons ready"
+      }
+    },
+    {
+      "name": "check_exercise",
+      "title": "Check an exercise",
+      "description": "Compare what the user typed with the expected text of an exercise, character by character. Reports each difference with its kind (straight vs typographic apostrophe, non-breaking space, missing accent on a capital, case, missing or extra character) and how to type the expected character. Pass the user's text exactly as typed.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Exercise id from get_lessons, for example email-web/arobase/2."
+          },
+          "typed": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Exactly what the user typed, unchanged."
+          },
+          "layout": {
+            "default": "unknown",
+            "description": "For an expat exercise: the AZERTY being learned, for the keystroke hints. Ignored for AZERTY Global lessons.",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt",
+              "unknown"
+            ]
+          },
+          "language": {
+            "default": "fr",
+            "description": "Language of the answer: fr (default) or en.",
+            "type": "string",
+            "enum": [
+              "fr",
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "exercise_id",
+          "typed"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false,
+        "idempotentHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html"
+        },
+        "ui/resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html",
+        "openai/toolInvocation/invoking": "Checking…",
+        "openai/toolInvocation/invoked": "Checked"
+      }
+    },
+    {
+      "name": "compare_layouts",
+      "title": "Compare two keyboard layouts",
+      "description": "For someone switching keyboards (for example from a US QWERTY to the French AZERTY): the characters whose keystrokes change, most frequent in French text first, with the keys on each layout or « impossible », then the first exercise to start practising.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "from": {
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt"
+            ],
+            "description": "The keyboard the user knows, for example qwerty-us."
+          },
+          "to": {
+            "default": "azerty-windows",
+            "description": "The keyboard the user is moving to (azerty-windows by default).",
+            "type": "string",
+            "enum": [
+              "azerty-global",
+              "azerty-windows",
+              "azerty-afnor",
+              "azerty-macos",
+              "azerty-linux",
+              "azerty-belgian",
+              "qwerty-us",
+              "qwerty-uk",
+              "qwertz-de",
+              "qwertz-ch",
+              "qwerty-es",
+              "qwerty-it",
+              "qwerty-pt"
+            ]
+          },
+          "language": {
+            "default": "fr",
+            "description": "Language of the answer: fr (default) or en.",
+            "type": "string",
+            "enum": [
+              "fr",
+              "en"
+            ]
+          }
+        },
+        "required": [
+          "from"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false,
+        "idempotentHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html"
+        },
+        "ui/resourceUri": "ui://azerty-coach/keyboard-<empreinte-du-widget>.html",
+        "openai/toolInvocation/invoking": "Comparing the keyboards…",
+        "openai/toolInvocation/invoked": "Comparison ready"
+      }
+    }
+  ]
+}

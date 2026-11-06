@@ -1,0 +1,676 @@
+<!doctype html>
+<!-- Widget AZERTY Coach : le clavier visuel du testeur (refonte-website/tester/keyboard.js), qui montre les
+     touches d'un caractère. Assemblé par scripts/build-widget.ts : les marqueurs /*__…__*/ reçoivent le pont
+     MCP Apps, le clavier du site, ses polices et ses données. Rien d'externe : l'iframe le bloquerait.
+     Charte : refonte-website/DESIGN.md (encre unique, 0 px sur les blocs, 3 px sur les contrôles). -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AZERTY Coach</title>
+<style>
+/*__FONTS_CSS__*/
+</style>
+<style>
+/*__KEYBOARD_CSS__*/
+</style>
+<style>
+/* Le schéma de couleurs suit le thème de l'hôte, jamais celui du système : un écart rendrait le fond de
+   l'iframe opaque. */
+:root {
+  color-scheme: light;
+  --encre: #1B1813;
+  --texte-2: #5B554A;
+  --bordure: #D9D2C3;
+  --action: #1A3EF2;
+  --sur-action: #FFFFFF;
+  --succes: #186339;
+  --sur-encre: #FFFFFF;
+  --serif: Literata, Georgia, serif;
+  --sans: "AG Texte", "Segoe UI", system-ui, sans-serif;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --encre: #FAF8F1;
+  --texte-2: #B3A996;
+  --bordure: #453D30;
+  --action: #8FA6FF;
+  --sur-action: #1B1813;
+  --succes: #6FBF8B;
+  --sur-encre: #1B1813;
+}
+/* Le clavier du testeur compte sur la boîte en border-box du site (css/v2) : sans elle, chaque touche
+   déborde de sa bordure et la touche Entrée, posée en absolu, chevauche la rangée. */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: transparent; color: var(--encre); font: 400 16px/1.4 var(--sans); }
+main { padding: 4px 8px 8px; display: grid; gap: 14px; }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; }
+/* Le masque des bords fondus effacerait le contour : il est levé pendant le focus. */
+.cadre-clavier.zoom:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; mask-image: none; }
+
+.resume { margin: 0; font-weight: 600; }
+
+.candidats { display: flex; flex-wrap: wrap; gap: 6px; }
+.candidats button {
+  min-width: 44px; height: 44px; padding: 0 8px; border: 1px solid var(--bordure); border-radius: 3px;
+  background: transparent; font: 600 22px/1 var(--serif);
+}
+.candidats button[aria-pressed="true"] { border: 2px solid var(--encre); }
+.candidats button[data-revu]::after { content: "✓"; margin-left: 3px; font: 600 13px/1 var(--sans); color: var(--succes); }
+.candidats .compte { margin-left: 3px; font: 600 13px/1 var(--sans); color: var(--texte-2); }
+
+.fiche { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+.glyphe {
+  width: 88px; height: 88px; display: grid; place-items: center; border: 1px solid var(--bordure);
+  font: 600 56px/1 var(--serif); overflow: hidden;
+}
+.fiche > div { padding-right: 8px; }
+.frappe { margin: 0; font-size: 22px; line-height: 1.3; font-weight: 600; }
+.frappe .contexte { font-weight: 400; color: var(--texte-2); }
+.nom { margin: 4px 0 0; color: var(--texte-2); font-size: 14px; }
+.rappel { margin: 6px 0 0; }
+
+.repli { display: grid; gap: 2px; }
+.repli, .avec { padding-right: 8px; }
+.repli p { margin: 0; }
+.repli .copie { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.a-copier { font: 600 20px/1 var(--serif); color: var(--encre); }
+.repli .copie button { padding: 2px 16px; }
+.frappe:focus { outline: none; }
+.resume, .rappel, .repli p, .pourquoi { max-width: 70ch; }
+.pourquoi { margin: 0; padding-right: 8px; color: var(--texte-2); font-size: 14px; }
+
+.etapes { display: flex; flex-wrap: wrap; gap: 8px; }
+.etapes button {
+  min-height: 44px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--bordure); border-radius: 3px; background: transparent;
+}
+.etapes button[aria-pressed="true"] { border: 2px solid var(--encre); padding: 5px 13px; font-weight: 600; }
+/* Encre unique : le chiffre distingue les étapes, le vert reste à « Réussi ». */
+.etapes .n { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: var(--encre); color: var(--sur-encre); font-size: 12px; font-weight: 700; }
+
+.cadre-clavier { width: 100%; overflow: hidden; display: flex; justify-content: flex-start; }
+/* Clavier agrandi sur un téléphone : le cadre montre la zone des touches à presser, les bords fondus disent la coupe. */
+/* Défilable au doigt : une touche entourée hors champ (Verr. Maj. loin de la touche du caractère) reste atteignable. */
+.cadre-clavier.zoom { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 14px), transparent); }
+#keyboard .key-label { font-size: max(9px, calc(var(--key-width) * 0.22)); white-space: nowrap; }
+/* Touches à presser : un anneau d'encre plat (charte : pas de halo), la pastille du testeur porte le numéro d'étape. */
+#keyboard .key.tutorial-key-highlight, #keyboard .key.tutorial-key-highlight-step1, #keyboard .key.tutorial-key-highlight-step2 {
+  box-shadow: 0 0 0 3px var(--encre);
+}
+#keyboard .key.tutorial-key-highlight-step1::after, #keyboard .key.tutorial-key-highlight-step2::after { background: var(--encre); color: var(--sur-encre); }
+/* Contraste AA des gravures secondaires, sans toucher au site : le gris atténué du testeur (#999) tombait
+   à 2,6:1 sur la touche claire et 4:1 sur la sombre, le rouge de touche morte sombre à 4:1, le vert du résultat
+   de touche morte clair (#009933) à 3,4:1 (critique du 22/10) : il prend le vert « Réussi » de la charte. */
+#keyboard.azerty-keyboard { --text-dimmed: #636363; --text-dead-key-result: #186339; }
+:root[data-theme="dark"] #keyboard.azerty-keyboard { --text-dimmed: #ABABAB; --text-dead-key: #FF8A8A; --text-dead-key-result: #66CC66; }
+/* Touches de lettre (sans gravure en bas à gauche) : la lettre reste en haut à gauche, 1,4 fois plus grande,
+   pour se lire d'abord parmi les gravures AltGr (choix d'Antoine sur rendus, 22/10 ; 0 chevauchement de boîtes à 768, 700, 390 et 320 px). */
+#keyboard .key:not(.special-key):has(.key-char.bottom-left:empty) .key-char.top-left { font-size: calc(var(--key-font-size) * 1.4); }
+/* Une seule taille par touche : la gravure active (1,1× dans le testeur) et le résultat de touche morte (1,15×)
+   grossissaient et se décalaient de leurs voisines, # et @ d'E00 à 1 px l'un de l'autre (retour d'Antoine, 22/10).
+   La couche active garde son gras et sa couleur. */
+#keyboard .key:not(.special-key) .key-char.active, #keyboard .key:not(.special-key) .key-char.dead-key-result { font-size: var(--key-font-size); }
+/* Le thème de l'hôte arrive après le premier rendu : sans ce verrou, les transitions du testeur (fond,
+   couleur) font glisser le clavier du thème système vers celui de l'hôte, et la page s'affiche un instant
+   dans un mélange des deux, illisible et mesuré tel quel par les vérifications de contraste. */
+:root[data-theme-en-cours] #keyboard, :root[data-theme-en-cours] #keyboard * { transition: none !important; }
+
+.essai { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--texte-2); }
+.essai input {
+  width: 8em; min-height: 44px; padding: 2px 10px; border: 1px solid var(--bordure); border-radius: 3px;
+  background: transparent; color: var(--encre); font: 600 20px/1 var(--serif);
+}
+.essai input:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; }
+.essai .reussi { color: var(--succes); font-weight: 600; }
+.essai .reussi:not(.ecart):not(:empty)::before { content: "✓ " / ""; }
+.essai .reussi.ecart { color: var(--texte-2); font-weight: 400; }
+#telecharger { justify-self: start; }
+.secondaire {
+  min-height: 44px; padding: 8px 16px; border: 1px solid var(--encre); border-radius: 3px; background: transparent;
+}
+.primaire {
+  min-height: 44px; padding: 8px 24px; border: 0; border-radius: 3px; background: var(--action);
+  color: var(--sur-action); font-weight: 600; justify-self: start;
+}
+.secondaire:hover, .primaire:hover { text-decoration: underline; }
+.secondaire:active, .primaire:active { transform: translateY(1px); }
+@media (max-width: 420px) {
+  .fiche { gap: 12px; }
+  .glyphe { width: 72px; height: 72px; font-size: 44px; }
+  .frappe { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<main id="app" hidden>
+  <p id="resume" class="resume" hidden></p>
+  <div id="candidats" class="candidats" role="group" hidden></div>
+  <section id="fiche" class="fiche">
+    <div id="glyphe" class="glyphe" aria-hidden="true"></div>
+    <div>
+      <p id="frappe" class="frappe" tabindex="-1"></p>
+      <p id="nom" class="nom"></p>
+      <p id="autres" class="nom" hidden></p>
+      <p id="rappel" class="rappel" hidden></p>
+    </div>
+  </section>
+  <div id="repli" class="repli" hidden></div>
+  <div id="avec" class="avec" hidden>
+    <p id="avec-frappe" class="frappe"></p>
+    <p id="avec-autres" class="nom" hidden></p>
+  </div>
+  <div id="etapes" class="etapes" role="group" hidden></div>
+  <div id="cadre-clavier" class="cadre-clavier"><div id="keyboard" role="img"></div></div>
+  <div id="essai" class="essai">
+    <label id="essai-libelle" for="tape"></label>
+    <input id="tape" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <span id="reussi" class="reussi" role="status"></span>
+    <button id="suivant" class="primaire" type="button" hidden></button>
+    <button id="effacer" class="secondaire" type="button"></button>
+  </div>
+  <p id="pourquoi" class="pourquoi" hidden></p>
+  <button id="telecharger" class="primaire" type="button" hidden></button>
+</main>
+<style id="ajustement"></style>
+<script type="module">
+/*__EXT_APPS_BUNDLE__*/
+</script>
+<script type="module">
+/*__KEYBOARD_JS__*/
+</script>
+<script type="module">
+const { App, applyHostStyleVariables } = globalThis.ExtApps;
+const { AZERTYKeyboard, setTesterLang } = globalThis.AGKeyboard;
+const LAYOUT = /*__LAYOUT_JSON__*/null;
+
+const TEXT = {
+  fr: {
+    onYour: "Sur votre clavier", withAG: "Avec AZERTY Global", notOnAG: "Ce caractère n'est pas sur AZERTY Global.",
+    copy: "À copier :", alt: (code) => `Sous Windows : ${code}, sur le pavé numérique`, practice: "Tapez-le ici ou cliquez les touches :",
+    practiceClick: "Cliquez les touches pour essayer :",
+    copyButton: "Copier", copied: "Copié",
+    copyBlocked: (keys) => `Copie bloquée ici : le caractère est sélectionné, ${keys ? `faites ${keys}` : "touchez la sélection puis « Copier »"}.`,
+    next: (c) => `Suivant : ${c}`, reviewed: "revu",
+    allDone: (n, total) => (total > n ? `${n} sur ${total} revus.` : `Tout revu : ${n} caractères.`),
+    clear: "Effacer", success: "Réussi", download: "Télécharger AZERTY Global", noMistake: "Sans faute.", candidates: "Caractères trouvés",
+    issues: (n, acc) => `${n} écart${parseInt(n, 10) > 1 ? "s" : ""}${acc ? `, ${acc} % des caractères déjà justes` : ""}. Les caractères à revoir :`,
+    found: (n) => `${n} caractères trouvés :`,
+    steps: "Étapes de la frappe", key: (k) => `touche ${k}`, impossible: (c, name) => `Pas de touche pour ${c} sur ${name}.`,
+    compare: (from, to, n, same, shown) =>
+      `De ${from} vers ${to} : ${n} caractères changent, ${same} restent identiques. ${shown < n ? `Les ${shown} plus fréquents` : "Du plus fréquent au plus rare"} :`,
+    before: (text) => `Avant : ${text}.`, onKeycaps: (from) => `Sur vos gravures ${from}`,
+    onName: (name, text) => `Sur le clavier dessiné, ${name} : ${text}.`,
+    others: (list) => `Autre${list.length > 1 ? "s" : ""} façon${list.length > 1 ? "s" : ""} : ${list.join(" ; ")}`, space: "espace",
+    times: (n) => `${n} fois`,
+    none: "aucune touche", typed: (got, want) => `Tapé ${got} au lieu de « ${want} ».`,
+    missing: (want, n) => `« ${want} » manquait${n > 1 ? ` (${n} fois)` : ""}.`, wrong: (got, want) => `${got} tapé, pas ${want}.`,
+  },
+  en: {
+    onYour: "On your keyboard", withAG: "With AZERTY Global", notOnAG: "This character is not on AZERTY Global.",
+    copy: "To copy:", alt: (code) => `On Windows: ${code}, on the numeric keypad`, practice: "Type it here or click the keys:",
+    practiceClick: "Click the keys to try it:",
+    copyButton: "Copy", copied: "Copied",
+    copyBlocked: (keys) => `Copying is blocked here: the character is selected, ${keys ? `press ${keys}` : "tap the selection, then “Copy”"}.`,
+    next: (c) => `Next: ${c}`, reviewed: "reviewed",
+    allDone: (n, total) => (total > n ? `${n} of ${total} reviewed.` : `All reviewed: ${n} characters.`),
+    clear: "Clear", success: "Done", download: "Download AZERTY Global", noMistake: "No mistakes.", candidates: "Matching characters",
+    issues: (n, acc) => `${n} difference${parseInt(n, 10) > 1 ? "s" : ""}${acc ? `, ${acc}% of characters already right` : ""}. Characters to review:`,
+    found: (n) => `${n} matching characters:`,
+    steps: "Keystroke steps", key: (k) => `${k} key`, impossible: (c, name) => `No key for ${c} on ${name}.`,
+    compare: (from, to, n, same, shown) =>
+      `From ${from} to ${to}: ${n} characters change, ${same} stay the same. ${shown < n ? `The ${shown} most frequent` : "Most frequent first"}:`,
+    before: (text) => `Before: ${text}.`, onKeycaps: (from) => `By your ${from} keycaps`,
+    onName: (name, text) => `On the keyboard shown, ${name}: ${text}.`,
+    others: (list) => `Other way${list.length > 1 ? "s" : ""}: ${list.join("; ")}`, space: "space",
+    times: (n) => `${n} times`,
+    none: "no key", typed: (got, want) => `Typed ${got} instead of “${want}”.`,
+    missing: (want, n) => `“${want}” was missing${n > 1 ? ` (${n} times)` : ""}.`, wrong: (got, want) => `Typed ${got}, not ${want}.`,
+  },
+};
+const HIGHLIGHTS = ["tutorial-key-highlight", "tutorial-key-highlight-step1", "tutorial-key-highlight-step2"];
+const IS_MAC = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
+// Libellés des modificateurs (Option, AltGr) : ceux de la disposition dessinée ; AZERTY Global suit le système.
+const OWN_PLATFORM = IS_MAC ? "mac" : /Linux/.test(navigator.platform) ? "linux" : "windows";
+const PLATFORMS = { macos: "mac", linux: "linux", windows: "windows" };
+let drawnPlatform = OWN_PLATFORM;
+const $ = (id) => document.getElementById(id);
+
+let lang = "fr";
+let sheets = [];
+let current = 0;
+let step = 0;
+let keyboard = null;
+// Disposition de l'utilisateur (ou cible d'une comparaison) envoyée par le serveur ; sinon AZERTY Global.
+let yourKeyboard = null;
+let onLabel = null;
+let drawn = null;
+// Ce qui éclaire chaque fiche : l'ancienne frappe (compare_layouts), ou l'écart tapé (check_exercise).
+let comparison = null;
+let issues = [];
+// Fiches réussies de la série, marquées dans les candidats.
+const reviewed = new Set();
+
+const t = () => TEXT[lang];
+const methodOf = (sheet) => sheet?.onYourLayout?.recommended ?? sheet?.withAzertyGlobal?.recommended;
+/** Une touche de ponctuation isolée passe entre guillemets : « touche ;. » se lisait comme une coquille. */
+const keyText = (text) => text.replace(/(^|\s)((?![+=])[\p{P}\p{S}])(?=[\s,;]|$)/gu, (_, sp, k) => `${sp}${lang === "fr" ? `«\u00a0${k}\u00a0»` : `“${k}”`}`);
+const strokeText = (s) => keyText(s.keys.length > 1 ? s.keys.join(" + ") : t().key(s.keys[0]));
+
+function modifierKeys(layer) {
+  const parts = new Set(layer.split("+"));
+  const keys = [];
+  if (parts.has("Caps")) keys.push("CapsLock");
+  if (parts.has("Shift")) keys.push("ShiftLeft");
+  // Une seule touche entourée : deux se liraient « appuyer sur les deux ».
+  if (parts.has("AltGr")) keys.push(drawnPlatform === "mac" ? "AltLeft" : "AltRight");
+  return keys;
+}
+
+/** Étape `index` : modificateurs enfoncés, touche morte active à l'étape 2, touches entourées comme dans le testeur. */
+function showStep(index, { fromKeyboard = false } = {}) {
+  const method = methodOf(sheets[current]);
+  if (!method || !keyboard) return;
+  step = index;
+  const stroke = method.strokes[index];
+  if (!fromKeyboard) {
+    keyboard.reset();
+    if (index > 0 && method.deadKey) keyboard.activateDeadKey(method.deadKey.id);
+  }
+  const parts = new Set(stroke.layer.split("+"));
+  keyboard.setCaps(parts.has("Caps"));
+  keyboard.setShift(parts.has("Shift"));
+  keyboard.setAltGr(parts.has("AltGr"));
+  keyboard.keyElements.forEach((el) => el.classList.remove(...HIGHLIGHTS));
+  const cls = method.strokes.length > 1 ? `tutorial-key-highlight-step${index + 1}` : "tutorial-key-highlight";
+  for (const id of [stroke.code, ...modifierKeys(stroke.layer)]) keyboard.keyElements.get(id)?.classList.add(cls);
+  $("etapes").querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === index)));
+  centerKeys();
+}
+
+/** Clavier agrandi : le cadre défile jusqu'aux touches entourées, ou jusqu'à la touche du caractère si elles ne tiennent pas. */
+function centerKeys() {
+  const cadre = $("cadre-clavier");
+  if (!cadre.classList.contains("zoom") || !keyboard) return;
+  const keys = [...keyboard.keyElements.values()].filter((el) => HIGHLIGHTS.some((c) => el.classList.contains(c)));
+  if (!keys.length) return (cadre.scrollLeft = 0);
+  const origin = cadre.getBoundingClientRect().left - cadre.scrollLeft;
+  const span = (els) => [Math.min(...els.map((el) => el.getBoundingClientRect().left)), Math.max(...els.map((el) => el.getBoundingClientRect().right))];
+  let [left, right] = span(keys);
+  if (right - left > cadre.clientWidth - 28) {
+    const main = keyboard.keyElements.get(methodOf(sheets[current])?.strokes[step]?.code);
+    if (main) [left, right] = span([main]);
+  }
+  cadre.scrollLeft = Math.round((left + right) / 2 - origin - cadre.clientWidth / 2);
+}
+
+function paragraph(text) {
+  const p = document.createElement("p");
+  p.textContent = text;
+  return p;
+}
+
+function renderSheet(index) {
+  current = index;
+  const sheet = sheets[index];
+  const method = methodOf(sheet);
+  $("candidats").querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === index)));
+  const glyph = shown(sheet.char);
+  $("glyphe").textContent = glyph;
+  $("nom").textContent = sheet.name && sheet.name !== sheet.codePoint ? `${sheet.name}, ${sheet.codePoint}` : sheet.codePoint;
+
+  // Le raccourci en une ligne : « Sur votre clavier, Verr. Maj. + é = É ». Absent de la disposition de
+  // l'utilisateur, la fiche le dit d'abord ; les replis passent au second plan, et la frappe avec AZERTY Global,
+  // ses autres façons comprises, se place au-dessus du clavier qui la montre.
+  const line = (el, label, text) => {
+    const contexte = document.createElement("span");
+    contexte.className = "contexte";
+    contexte.textContent = `${label}, `;
+    el.replaceChildren(contexte, text);
+  };
+  const otherWays = (el, list) => {
+    el.textContent = list.length && !/^\s$/u.test(sheet.char) ? t().others(list.map((o) => keyText(o.text))) : "";
+    el.hidden = !el.textContent;
+  };
+  const frappe = $("frappe");
+  const change = comparison?.changes.find((c) => c.char === sheet.char);
+  const impossible = Boolean(sheet.impossibleOnYourLayout && method);
+  $("avec").hidden = !impossible;
+  if (change?.toOnFromKeys && method) line(frappe, t().onKeycaps(comparison.fromName), `${keyText(change.toOnFromKeys)} = ${glyph}`);
+  else if (sheet.onYourLayout) line(frappe, onLabel ?? t().onYour, `${keyText(method.text)} = ${glyph}`);
+  else if (sheet.impossibleOnYourLayout) frappe.textContent = t().impossible(glyph, sheet.layoutName);
+  else if (method) line(frappe, t().withAG, `${keyText(method.text)} = ${glyph}`);
+  else frappe.textContent = t().notOnAG;
+  if (impossible) line($("avec-frappe"), t().withAG, `${keyText(method.text)} = ${glyph}`);
+  otherWays(impossible ? $("avec-autres") : $("autres"), (sheet.onYourLayout ?? sheet.withAzertyGlobal)?.others ?? []);
+  if (impossible) $("autres").hidden = true;
+  $("rappel").textContent = recall(sheet, change);
+  $("rappel").hidden = !$("rappel").textContent;
+
+  const repli = $("repli");
+  repli.replaceChildren();
+  repli.hidden = Boolean(sheet.onYourLayout);
+  // Absent du clavier de l'utilisateur : la copie vient sous la fiche, ce qui sert tout de suite ; AZERTY Global ensuite.
+  if (!sheet.onYourLayout) {
+    repli.append(copyLine(sheet.fallbacks?.copy ?? sheet.char));
+    // Le code Alt ne sert que sous Windows.
+    const alt = sheet.fallbacks?.windowsAltCode;
+    if (alt && !["mac", "linux"].includes(PLATFORMS[yourKeyboard?.platform] ?? OWN_PLATFORM)) repli.append(paragraph(t().alt(alt)));
+  }
+  $("pourquoi").textContent = sheet.suggestion?.text ?? "";
+  $("pourquoi").hidden = !sheet.suggestion;
+  $("telecharger").hidden = !sheet.suggestion;
+  $("telecharger").className = repli.hidden ? "primaire" : "secondaire";
+  // « ␣ » se lirait tel quel : l'espace est dit en toutes lettres.
+  $("keyboard").setAttribute("aria-label", method ? (impossible ? $("avec-frappe") : frappe).textContent.replace("␣", t().space) : "");
+  $("essai-libelle").textContent = impossible ? t().practiceClick : t().practice;
+
+  const etapes = $("etapes");
+  etapes.replaceChildren();
+  etapes.hidden = !method || method.strokes.length < 2;
+  if (method && method.strokes.length > 1) {
+    method.strokes.forEach((s, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      const n = document.createElement("span");
+      n.className = `n n${i + 1}`;
+      n.setAttribute("aria-hidden", "true");
+      n.textContent = String(i + 1);
+      b.append(n, strokeText(s));
+      b.addEventListener("click", () => showStep(i));
+      etapes.append(b);
+    });
+  }
+  $("cadre-clavier").hidden = !method;
+  $("essai").hidden = !method;
+  // La frappe se lit sur le clavier qui la porte : celui de l'utilisateur, ou AZERTY Global.
+  const target = sheet.onYourLayout && yourKeyboard ? yourKeyboard : LAYOUT;
+  if (keyboard && target !== drawn) {
+    drawnPlatform = PLATFORMS[target.platform] ?? OWN_PLATFORM;
+    keyboard.setPlatform(drawnPlatform);
+    keyboard.setLayout(keymapFor(target), target.deadkeys);
+    drawn = target;
+  }
+  resetPractice();
+  if (method) showStep(0);
+}
+
+// Le logo Apple (U+F8FF, zone privée) ne s'affiche que sur un système Apple : ailleurs, un carré vide.
+const keymaps = new WeakMap();
+function keymapFor(target) {
+  if (IS_MAC) return target.keymap;
+  if (!keymaps.has(target)) keymaps.set(target, JSON.parse(JSON.stringify(target.keymap).replaceAll(String.fromCharCode(0xf8ff), "")));
+  return keymaps.get(target);
+}
+
+/** Un blanc s'affiche « ␣ » : sinon la fiche de l'espace reste vide. */
+const shown = (char) => (/^\s$/u.test(char) ? "␣" : char);
+const quoted = (c) => (lang === "fr" ? `« ${shown(c)} »` : `“${shown(c)}”`);
+
+/** La ligne qui situe la fiche : l'ancienne frappe d'une comparaison, ou ce qui a été tapé à sa place. */
+function recall(sheet, change) {
+  if (comparison) {
+    if (!change) return "";
+    const before = t().before(change.from?.text ? keyText(change.from.text) : t().none);
+    // La frappe en gras suit les gravures ; le nom de la touche dans la nouvelle disposition vient en rappel.
+    const method = methodOf(sheet);
+    return change.toOnFromKeys && method ? `${before} ${t().onName(comparison.toName, keyText(method.text))}` : before;
+  }
+  // Tous les écarts du caractère : « Tapé « e » (2 fois) et « é » au lieu de « ê ». »
+  const mine = issues.filter((i) => i.expected === sheet.char);
+  if (!mine.length) return "";
+  const counts = new Map();
+  for (const i of mine) if (i.typed && i.typed !== "\n") counts.set(i.typed, (counts.get(i.typed) ?? 0) + 1);
+  if (!counts.size) return t().missing(shown(sheet.char), mine.length);
+  const and = lang === "fr" ? " et " : " and ";
+  const got = [...counts].map(([c, n]) => `${quoted(c)}${n > 1 ? ` (${t().times(n)})` : ""}`).join(and);
+  return t().typed(got, shown(sheet.char));
+}
+
+/** « À copier : É [Copier] » : le presse-papiers peut être refusé à l'iframe ; le caractère est alors sélectionné. */
+function copyLine(text) {
+  const p = document.createElement("p");
+  p.className = "copie";
+  const value = document.createElement("span");
+  value.className = "a-copier";
+  value.textContent = text;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "secondaire";
+  button.textContent = t().copyButton;
+  button.setAttribute("aria-label", `${t().copyButton} ${text}`);
+  const status = document.createElement("span");
+  status.setAttribute("role", "status");
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      status.textContent = t().copied;
+      setTimeout(() => (status.textContent = ""), 3000);
+    } catch {
+      getSelection()?.selectAllChildren(value);
+      status.textContent = t().copyBlocked(matchMedia("(pointer: coarse)").matches ? "" : IS_MAC ? "⌘ + C" : "Ctrl + C");
+    }
+  });
+  p.append(`${t().copy} `, value, button, status);
+  return p;
+}
+
+function resetPractice() {
+  $("tape").value = "";
+  $("reussi").textContent = "";
+  $("suivant").hidden = true;
+}
+
+/** Réussi quand le texte d'essai finit par le caractère, tapé au clavier physique ou cliqué ; le suivant s'offre alors. */
+function checkPractice() {
+  const value = $("tape").value;
+  const done = value.endsWith(sheets[current].char);
+  const next = sheets[current + 1];
+  const total = comparison?.changes.length ?? sheets.length;
+  // Fin de série : la réussite le dit ; une série tronquée dit combien sur combien.
+  const last = [...value].at(-1);
+  $("reussi").textContent = done
+    ? next || sheets.length < 2 ? t().success : `${t().success}. ${t().allDone(sheets.length, total)}`
+    : last ? t().wrong(quoted(last), quoted(sheets[current].char)) : "";
+  $("reussi").classList.toggle("ecart", !done && Boolean(last));
+  if (done && !reviewed.has(current)) {
+    reviewed.add(current);
+    const b = $("candidats").children[current];
+    if (b) {
+      b.dataset.revu = "";
+      b.setAttribute("aria-label", `${b.getAttribute("aria-label")}, ${t().reviewed}`);
+    }
+  }
+  $("suivant").hidden = !done || !next;
+  // Un seul bouton principal : Télécharger s'efface derrière Suivant, et derrière la copie quand elle est offerte.
+  $("telecharger").className = $("suivant").hidden && $("repli").hidden ? "primaire" : "secondaire";
+  // Texte visible = nom accessible (WCAG 2.5.3) : l'espace s'écrit en toutes lettres.
+  if (done && next) $("suivant").textContent = t().next(/^\s$/u.test(next.char) ? t().space : next.char);
+  return done;
+}
+
+function render(data) {
+  sheets = (data?.sheets ?? []).filter((s) => s && s.char);
+  yourKeyboard = data?.keyboard?.keymap ? data.keyboard : null;
+  onLabel = typeof data?.onLabel === "string" ? data.onLabel : null;
+  comparison = Array.isArray(data?.changes) && data.fromName ? data : null;
+  issues = Array.isArray(data?.issues) ? data.issues : [];
+  drawn = null;
+  reviewed.clear();
+  if (data?.language === "en" || data?.language === "fr") lang = data.language;
+  document.documentElement.lang = lang;
+  setTesterLang(lang);
+  $("effacer").textContent = t().clear;
+  // Nommé dès le rendu, même masqué : le libellé précis vient avec la réussite.
+  $("suivant").textContent = t().next("").replace(/\s*:\s*$/u, "").replace(/ /gu, "");
+  $("tape").lang = lang;
+  $("telecharger").textContent = t().download;
+  $("candidats").setAttribute("aria-label", t().candidates);
+  $("etapes").setAttribute("aria-label", t().steps);
+
+  const resume = $("resume");
+  resume.hidden = typeof data?.correct !== "boolean" && !comparison;
+  if (comparison) resume.textContent = t().compare(comparison.fromName, comparison.toName, comparison.changes.length, comparison.unchanged, sheets.length);
+  else if (!resume.hidden) {
+    const n = `${data.issues?.length ?? sheets.length}${data.truncated ? "+" : ""}`;
+    resume.textContent = data.correct ? t().noMistake : t().issues(n, typeof data.accuracy === "number" ? data.accuracy : null);
+  }
+  if (resume.hidden && sheets.length > 1) {
+    resume.textContent = t().found(sheets.length);
+    resume.hidden = false;
+  }
+  $("app").hidden = sheets.length === 0 && resume.hidden;
+  $("fiche").hidden = sheets.length === 0;
+  if (sheets.length === 0) {
+    for (const id of ["candidats", "etapes", "repli", "avec", "cadre-clavier", "essai", "pourquoi", "telecharger"]) $(id).hidden = true;
+    return;
+  }
+
+  // Reconstruit à chaque résultat : les libellés du clavier (Maj, Verr. Maj.) suivent la langue.
+  keyboard = new AZERTYKeyboard($("keyboard"), {
+    onKeyClick: (char) => {
+      const tape = $("tape");
+      tape.value = (tape.value + char).slice(-16);
+      if (checkPractice()) showStep(0);
+    },
+    onStateChange: (state) => {
+      const method = methodOf(sheets[current]);
+      // La touche morte tapée sur le clavier lui-même : l'étape 2 s'éclaire sans effacer l'état.
+      if (method?.deadKey && step === 0 && state.activeDeadKey === method.deadKey.id) showStep(1, { fromKeyboard: true });
+    },
+  });
+  fit();
+
+  const candidats = $("candidats");
+  candidats.replaceChildren();
+  candidats.hidden = sheets.length < 2;
+  sheets.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    // Un blanc reste visible ; un caractère manqué plusieurs fois dans l'exercice porte son compte.
+    b.textContent = shown(s.char);
+    const count = issues.filter((x) => x.expected === s.char).length;
+    if (count > 1) {
+      const c = document.createElement("span");
+      c.className = "compte";
+      c.textContent = `×${count}`;
+      b.append(c);
+    }
+    b.setAttribute("aria-label", `${/^\s$/u.test(s.char) ? t().space : s.name}${count > 1 ? `, ${t().times(count)}` : ""}`);
+    b.addEventListener("click", () => renderSheet(i));
+    candidats.append(b);
+  });
+  renderSheet(0);
+}
+
+/** Taille des touches selon la largeur : la rangée la plus large compte 15,4 touches et 14 espaces. */
+function fit() {
+  // Largeur de la fenêtre, barre de défilement comprise : sinon la barre, en rétrécissant le clavier, change
+  // la hauteur annoncée à l'hôte, qui retire la barre, et ainsi de suite. 16 px : les marges de <main>.
+  const width = window.innerWidth - 16;
+  const gap = width < 480 ? 2 : width < 720 ? 3 : 4;
+  const pad = width < 480 ? 6 : 10;
+  const natural = Math.max(18, Math.min(60, Math.floor((width - 2 * pad - 14 * gap - 4) / 15.4)));
+  // Sur un téléphone, le clavier entier tomberait à des touches de 21 px : il garde une taille lisible et le cadre
+  // montre la zone utile (centerKeys).
+  const zoom = natural < 30;
+  const key = zoom ? 36 : natural;
+  // Touches étroites : plus hautes que larges, comme dans le testeur, pour garder les gravures lisibles.
+  const small = zoom || key < 34;
+  const height = zoom ? 46 : small ? Math.round(key * 1.3) : key;
+  // Gravures aussi grandes que la touche le permet sans contact, mesuré à l'encre sur 6 pages à 768, 700, 560, 390
+  // et 320 px (vague 3, choix G d'Antoine, 22/10) : la touche carrée est limitée en hauteur, l'étroite (plus haute
+  // que large) a de la place.
+  const font = Math.max(9, Math.round(key * (small ? 0.36 : 0.33)));
+  $("cadre-clavier").classList.toggle("zoom", zoom);
+  // Cadre défilant : atteignable au clavier (flèches), sinon une partie du clavier dessiné reste hors de portée.
+  if (zoom) $("cadre-clavier").tabIndex = 0;
+  else $("cadre-clavier").removeAttribute("tabindex");
+  $("ajustement").textContent =
+    `#keyboard.azerty-keyboard{--key-width:${key}px;--key-height:${height}px;--key-gap:${gap}px;` +
+    `--key-font-size:${font}px;--key-font-size-small:${Math.max(zoom ? 10 : 8, Math.round(key * 0.22))}px}` +
+    `#keyboard .keyboard-container{--keyboard-padding:${pad}px;border-radius:${key < 40 ? 6 : 12}px;overflow:visible}` +
+    `#keyboard .key{border-radius:${key < 40 ? 3 : 6}px}` +
+    // Encre à 4 px du bord de la touche carrée (8 px dans le testeur), 3 px de l'étroite ; 2 px au-dessus et au-dessous
+    // des gravures, que l'étroite collait au bord (0,1 px mesuré à 390).
+    `#keyboard .key-content{inset:${small ? 1 : 2}px}` +
+    `#keyboard .key-char.top-left{padding:2px 0 0 ${small ? 1 : 2}px}#keyboard .key-char.bottom-left{padding:0 0 2px ${small ? 1 : 2}px}` +
+    `#keyboard .key-char.top-right{padding:2px ${small ? 1 : 2}px 0 0}#keyboard .key-char.bottom-right{padding:0 ${small ? 1 : 2}px 2px 0}` +
+    // Touches étroites : « ⇪ Verr. Maj. », « ⌥ Option » passent sur deux lignes plutôt que de déborder.
+    (small ? `#keyboard .key-label{white-space:normal;line-height:1;text-align:center}` : "");
+  alignInk();
+}
+
+/** Aligne l'encre des gravures sur la marge : chaque glyphe glisse de son approche (le blanc à côté de son dessin,
+ *  propre à chaque caractère et à chaque graisse), sinon # et @ d'une même colonne ne commencent pas au même endroit. */
+const inkCanvas = document.createElement("canvas").getContext("2d");
+function alignInk() {
+  for (const c of $("keyboard").querySelectorAll(".key:not(.special-key) .key-char")) {
+    c.style.translate = "";
+    if (!c.textContent.trim()) continue;
+    const cs = getComputedStyle(c);
+    inkCanvas.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const m = inkCanvas.measureText(c.textContent);
+    const shift = /right/.test(c.className) ? m.width - m.actualBoundingBoxRight : m.actualBoundingBoxLeft;
+    c.style.translate = `${shift.toFixed(2)}px 0`;
+  }
+}
+// Le testeur réécrit ses gravures à chaque couche (Maj, AltGr, touche morte) : réalignées à l'image suivante.
+let inkQueued = false;
+new MutationObserver(() => {
+  if (inkQueued) return;
+  inkQueued = true;
+  requestAnimationFrame(() => {
+    inkQueued = false;
+    alignInk();
+  });
+}).observe($("keyboard"), { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ["class"] });
+document.fonts.ready.then(alignInk);
+addEventListener("resize", () => {
+  fit();
+  centerKeys();
+});
+
+// La frappe au clavier physique passe par la disposition du système : c'est l'essai réel.
+$("tape").addEventListener("input", () => checkPractice());
+// Passe au caractère suivant ; le champ garde le focus pour enchaîner au clavier.
+$("suivant").addEventListener("click", () => {
+  renderSheet(current + 1);
+  // Sur un écran tactile, le focus du champ ouvrirait le clavier virtuel : il va à la nouvelle frappe.
+  $(matchMedia("(pointer: fine)").matches ? "tape" : "frappe").focus();
+});
+$("effacer").addEventListener("click", () => {
+  resetPractice();
+  showStep(0);
+});
+
+const app = new App({ name: "AZERTY Coach", version: "1.0.0" }, {}, { autoResize: true });
+$("telecharger").addEventListener("click", () => {
+  const url = sheets[current]?.suggestion?.download;
+  if (url) app.openLink({ url });
+});
+
+function applyHostContext(ctx) {
+  const root = document.documentElement;
+  const theme = ctx?.theme ?? root.dataset.theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  if (theme !== root.dataset.theme) {
+    // Changement de thème sans transition : verrou levé après le rendu des nouvelles couleurs.
+    root.dataset.themeEnCours = "";
+    root.dataset.theme = theme;
+    requestAnimationFrame(() => requestAnimationFrame(() => delete root.dataset.themeEnCours));
+  }
+  if (ctx?.styles?.variables) applyHostStyleVariables(ctx.styles.variables);
+}
+app.ontoolinput = ({ arguments: args }) => {
+  if (args?.language === "en" || args?.language === "fr") lang = args.language;
+};
+app.ontoolresult = (result) => render(result?.structuredContent);
+app.onhostcontextchanged = applyHostContext;
+applyHostContext(undefined);
+await app.connect();
+applyHostContext(app.getHostContext());
+</script>
+</body>
+</html>

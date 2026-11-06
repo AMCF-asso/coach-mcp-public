@@ -1,0 +1,819 @@
+{
+ "meta": {
+  "dll": "kbdus.dll",
+  "path": "C:\\Windows\\System32\\kbdus.dll",
+  "fileVersion": "10.0.26100.4202",
+  "sha256": "a1b3947113e615b73aa601be4625a8ad6eba2755c5fa09d2a65def0b90acd0a1",
+  "extractedAt": "2026-10-05T13:35:07+00:00",
+  "registry": [
+   {
+    "klid": "00000404",
+    "layoutText": "Chinese (Traditional) - US Keyboard",
+    "displayName": "Chinese (Traditional) - US",
+    "layoutId": null
+   },
+   {
+    "klid": "00000409",
+    "layoutText": "US",
+    "displayName": "US",
+    "layoutId": null
+   },
+   {
+    "klid": "00000804",
+    "layoutText": "Chinese (Simplified) - US Keyboard",
+    "displayName": "Chinese (Simplified) - US",
+    "layoutId": null
+   },
+   {
+    "klid": "00000c04",
+    "layoutText": "Chinese (Traditional, Hong Kong S.A.R.) - US Keyboard",
+    "displayName": "Chinese (Traditional, Hong Kong S.A.R.) - US",
+    "layoutId": null
+   },
+   {
+    "klid": "00001004",
+    "layoutText": "Chinese (Simplified, Singapore) - US Keyboard",
+    "displayName": "Chinese (Simplified, Singapore) - US",
+    "layoutId": null
+   },
+   {
+    "klid": "00001404",
+    "layoutText": "Chinese (Traditional, Macao S.A.R.) - US Keyboard",
+    "displayName": "Chinese (Traditional, Macao S.A.R.) - US",
+    "layoutId": null
+   },
+   {
+    "klid": "00010402",
+    "layoutText": "Bulgarian (Latin)",
+    "displayName": "Bulgarian (Latin)",
+    "layoutId": "0004"
+   }
+  ],
+  "klid": "00000409",
+  "localeFlags": "0x00010000",
+  "flags": [],
+  "kbdVersion": 1,
+  "keyboardType": 0,
+  "keyboardSubType": 0,
+  "modifiers": {
+   "vkToBit": [
+    {
+     "vk": "0x10",
+     "bit": 1
+    },
+    {
+     "vk": "0x11",
+     "bit": 2
+    },
+    {
+     "vk": "0x12",
+     "bit": 4
+    }
+   ],
+   "modNumber": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "vkToWcharTables": [
+   {
+    "modifications": 3,
+    "entrySize": 8,
+    "rows": 9
+   },
+   {
+    "modifications": 4,
+    "entrySize": 10,
+    "rows": 3
+   },
+   {
+    "modifications": 2,
+    "entrySize": 6,
+    "rows": 47
+   },
+   {
+    "modifications": 1,
+    "entrySize": 4,
+    "rows": 10
+   }
+  ],
+  "deadKeyEntries": 0,
+  "ligatures": {},
+  "method": "LoadLibrary + KbdLayerDescriptor, lecture de KBDTABLES (kbd.h) ; registre en KEY_READ ; aucun LoadKeyboardLayout/ActivateKeyboardLayout",
+  "layers": [
+   "Base",
+   "Shift",
+   "Caps",
+   "Caps+Shift",
+   "AltGr",
+   "Shift+AltGr",
+   "Caps+AltGr",
+   "Caps+Shift+AltGr"
+  ],
+  "virtualKeys": {
+   "Backquote": "0xC0",
+   "Digit1": "0x31",
+   "Digit2": "0x32",
+   "Digit3": "0x33",
+   "Digit4": "0x34",
+   "Digit5": "0x35",
+   "Digit6": "0x36",
+   "Digit7": "0x37",
+   "Digit8": "0x38",
+   "Digit9": "0x39",
+   "Digit0": "0x30",
+   "Minus": "0xBD",
+   "Equal": "0xBB",
+   "KeyQ": "0x51",
+   "KeyW": "0x57",
+   "KeyE": "0x45",
+   "KeyR": "0x52",
+   "KeyT": "0x54",
+   "KeyY": "0x59",
+   "KeyU": "0x55",
+   "KeyI": "0x49",
+   "KeyO": "0x4F",
+   "KeyP": "0x50",
+   "BracketLeft": "0xDB",
+   "BracketRight": "0xDD",
+   "KeyA": "0x41",
+   "KeyS": "0x53",
+   "KeyD": "0x44",
+   "KeyF": "0x46",
+   "KeyG": "0x47",
+   "KeyH": "0x48",
+   "KeyJ": "0x4A",
+   "KeyK": "0x4B",
+   "KeyL": "0x4C",
+   "Semicolon": "0xBA",
+   "Quote": "0xDE",
+   "Backslash": "0xDC",
+   "IntlBackslash": "0xE2",
+   "KeyZ": "0x5A",
+   "KeyX": "0x58",
+   "KeyC": "0x43",
+   "KeyV": "0x56",
+   "KeyB": "0x42",
+   "KeyN": "0x4E",
+   "KeyM": "0x4D",
+   "Comma": "0xBC",
+   "Period": "0xBE",
+   "Slash": "0xBF",
+   "Space": "0x20"
+  },
+  "capsAttributes": {
+   "Backquote": [],
+   "Digit1": [],
+   "Digit2": [],
+   "Digit3": [],
+   "Digit4": [],
+   "Digit5": [],
+   "Digit6": [],
+   "Digit7": [],
+   "Digit8": [],
+   "Digit9": [],
+   "Digit0": [],
+   "Minus": [],
+   "Equal": [],
+   "KeyQ": [
+    "CAPLOK"
+   ],
+   "KeyW": [
+    "CAPLOK"
+   ],
+   "KeyE": [
+    "CAPLOK"
+   ],
+   "KeyR": [
+    "CAPLOK"
+   ],
+   "KeyT": [
+    "CAPLOK"
+   ],
+   "KeyY": [
+    "CAPLOK"
+   ],
+   "KeyU": [
+    "CAPLOK"
+   ],
+   "KeyI": [
+    "CAPLOK"
+   ],
+   "KeyO": [
+    "CAPLOK"
+   ],
+   "KeyP": [
+    "CAPLOK"
+   ],
+   "BracketLeft": [],
+   "BracketRight": [],
+   "KeyA": [
+    "CAPLOK"
+   ],
+   "KeyS": [
+    "CAPLOK"
+   ],
+   "KeyD": [
+    "CAPLOK"
+   ],
+   "KeyF": [
+    "CAPLOK"
+   ],
+   "KeyG": [
+    "CAPLOK"
+   ],
+   "KeyH": [
+    "CAPLOK"
+   ],
+   "KeyJ": [
+    "CAPLOK"
+   ],
+   "KeyK": [
+    "CAPLOK"
+   ],
+   "KeyL": [
+    "CAPLOK"
+   ],
+   "Semicolon": [],
+   "Quote": [],
+   "Backslash": [],
+   "IntlBackslash": [],
+   "KeyZ": [
+    "CAPLOK"
+   ],
+   "KeyX": [
+    "CAPLOK"
+   ],
+   "KeyC": [
+    "CAPLOK"
+   ],
+   "KeyV": [
+    "CAPLOK"
+   ],
+   "KeyB": [
+    "CAPLOK"
+   ],
+   "KeyN": [
+    "CAPLOK"
+   ],
+   "KeyM": [
+    "CAPLOK"
+   ],
+   "Comma": [],
+   "Period": [],
+   "Slash": [],
+   "Space": []
+  },
+  "capsSummary": {
+   "aucun": [
+    "Backquote",
+    "Digit1",
+    "Digit2",
+    "Digit3",
+    "Digit4",
+    "Digit5",
+    "Digit6",
+    "Digit7",
+    "Digit8",
+    "Digit9",
+    "Digit0",
+    "Minus",
+    "Equal",
+    "BracketLeft",
+    "BracketRight",
+    "Semicolon",
+    "Quote",
+    "Backslash",
+    "IntlBackslash",
+    "Comma",
+    "Period",
+    "Slash",
+    "Space"
+   ],
+   "CAPLOK": [
+    "KeyQ",
+    "KeyW",
+    "KeyE",
+    "KeyR",
+    "KeyT",
+    "KeyY",
+    "KeyU",
+    "KeyI",
+    "KeyO",
+    "KeyP",
+    "KeyA",
+    "KeyS",
+    "KeyD",
+    "KeyF",
+    "KeyG",
+    "KeyH",
+    "KeyJ",
+    "KeyK",
+    "KeyL",
+    "KeyZ",
+    "KeyX",
+    "KeyC",
+    "KeyV",
+    "KeyB",
+    "KeyN",
+    "KeyM"
+   ]
+  }
+ },
+ "keymap": {
+  "Backquote": [
+   "`",
+   "~",
+   "`",
+   "~",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit1": [
+   "1",
+   "!",
+   "1",
+   "!",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit2": [
+   "2",
+   "@",
+   "2",
+   "@",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit3": [
+   "3",
+   "#",
+   "3",
+   "#",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit4": [
+   "4",
+   "$",
+   "4",
+   "$",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit5": [
+   "5",
+   "%",
+   "5",
+   "%",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit6": [
+   "6",
+   "^",
+   "6",
+   "^",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit7": [
+   "7",
+   "&",
+   "7",
+   "&",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit8": [
+   "8",
+   "*",
+   "8",
+   "*",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit9": [
+   "9",
+   "(",
+   "9",
+   "(",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Digit0": [
+   "0",
+   ")",
+   "0",
+   ")",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Minus": [
+   "-",
+   "_",
+   "-",
+   "_",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Equal": [
+   "=",
+   "+",
+   "=",
+   "+",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyQ": [
+   "q",
+   "Q",
+   "Q",
+   "q",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyW": [
+   "w",
+   "W",
+   "W",
+   "w",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyE": [
+   "e",
+   "E",
+   "E",
+   "e",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyR": [
+   "r",
+   "R",
+   "R",
+   "r",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyT": [
+   "t",
+   "T",
+   "T",
+   "t",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyY": [
+   "y",
+   "Y",
+   "Y",
+   "y",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyU": [
+   "u",
+   "U",
+   "U",
+   "u",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyI": [
+   "i",
+   "I",
+   "I",
+   "i",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyO": [
+   "o",
+   "O",
+   "O",
+   "o",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyP": [
+   "p",
+   "P",
+   "P",
+   "p",
+   null,
+   null,
+   null,
+   null
+  ],
+  "BracketLeft": [
+   "[",
+   "{",
+   "[",
+   "{",
+   null,
+   null,
+   null,
+   null
+  ],
+  "BracketRight": [
+   "]",
+   "}",
+   "]",
+   "}",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyA": [
+   "a",
+   "A",
+   "A",
+   "a",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyS": [
+   "s",
+   "S",
+   "S",
+   "s",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyD": [
+   "d",
+   "D",
+   "D",
+   "d",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyF": [
+   "f",
+   "F",
+   "F",
+   "f",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyG": [
+   "g",
+   "G",
+   "G",
+   "g",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyH": [
+   "h",
+   "H",
+   "H",
+   "h",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyJ": [
+   "j",
+   "J",
+   "J",
+   "j",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyK": [
+   "k",
+   "K",
+   "K",
+   "k",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyL": [
+   "l",
+   "L",
+   "L",
+   "l",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Semicolon": [
+   ";",
+   ":",
+   ";",
+   ":",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Quote": [
+   "'",
+   "\"",
+   "'",
+   "\"",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Backslash": [
+   "\\",
+   "|",
+   "\\",
+   "|",
+   null,
+   null,
+   null,
+   null
+  ],
+  "IntlBackslash": [
+   "\\",
+   "|",
+   "\\",
+   "|",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyZ": [
+   "z",
+   "Z",
+   "Z",
+   "z",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyX": [
+   "x",
+   "X",
+   "X",
+   "x",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyC": [
+   "c",
+   "C",
+   "C",
+   "c",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyV": [
+   "v",
+   "V",
+   "V",
+   "v",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyB": [
+   "b",
+   "B",
+   "B",
+   "b",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyN": [
+   "n",
+   "N",
+   "N",
+   "n",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyM": [
+   "m",
+   "M",
+   "M",
+   "m",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Comma": [
+   ",",
+   "<",
+   ",",
+   "<",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Period": [
+   ".",
+   ">",
+   ".",
+   ">",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Slash": [
+   "/",
+   "?",
+   "/",
+   "?",
+   null,
+   null,
+   null,
+   null
+  ],
+  "Space": [
+   " ",
+   " ",
+   " ",
+   " ",
+   null,
+   null,
+   null,
+   null
+  ]
+ },
+ "deadkeys": {},
+ "deadKeyInfo": {}
+}

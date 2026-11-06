@@ -1,0 +1,1571 @@
+{
+ "meta": {
+  "dll": "kbdfrna.dll",
+  "path": "C:\\Windows\\System32\\kbdfrna.dll",
+  "fileVersion": "10.0.26100.2454",
+  "sha256": "b74e266f548d6c1c0732ee445b8a311f7e58d187a11f6c57a437d87ae64106ad",
+  "extractedAt": "2026-10-05T13:35:07+00:00",
+  "registry": [
+   {
+    "klid": "0001040c",
+    "layoutText": "French (Standard, AZERTY)",
+    "displayName": "French (Standard, AZERTY)",
+    "layoutId": "00CE"
+   }
+  ],
+  "klid": "0001040c",
+  "localeFlags": "0x00010001",
+  "flags": [
+   "KLLF_ALTGR"
+  ],
+  "kbdVersion": 1,
+  "keyboardType": 0,
+  "keyboardSubType": 0,
+  "modifiers": {
+   "vkToBit": [
+    {
+     "vk": "0x10",
+     "bit": 1
+    },
+    {
+     "vk": "0x11",
+     "bit": 2
+    },
+    {
+     "vk": "0x12",
+     "bit": 4
+    }
+   ],
+   "modNumber": [
+    0,
+    1,
+    2,
+    3,
+    15,
+    15,
+    4,
+    5
+   ]
+  },
+  "vkToWcharTables": [
+   {
+    "modifications": 3,
+    "entrySize": 8,
+    "rows": 4
+   },
+   {
+    "modifications": 6,
+    "entrySize": 14,
+    "rows": 67
+   },
+   {
+    "modifications": 2,
+    "entrySize": 6,
+    "rows": 5
+   },
+   {
+    "modifications": 1,
+    "entrySize": 4,
+    "rows": 10
+   }
+  ],
+  "deadKeyEntries": 563,
+  "ligatures": {},
+  "method": "LoadLibrary + KbdLayerDescriptor, lecture de KBDTABLES (kbd.h) ; registre en KEY_READ ; aucun LoadKeyboardLayout/ActivateKeyboardLayout",
+  "layers": [
+   "Base",
+   "Shift",
+   "Caps",
+   "Caps+Shift",
+   "AltGr",
+   "Shift+AltGr",
+   "Caps+AltGr",
+   "Caps+Shift+AltGr"
+  ],
+  "virtualKeys": {
+   "Backquote": "0xC0",
+   "Digit1": "0x31",
+   "Digit2": "0x32",
+   "Digit3": "0x33",
+   "Digit4": "0x34",
+   "Digit5": "0x35",
+   "Digit6": "0x36",
+   "Digit7": "0x37",
+   "Digit8": "0x38",
+   "Digit9": "0x39",
+   "Digit0": "0x30",
+   "Minus": "0xDE",
+   "Equal": "0xDD",
+   "KeyQ": "0x41",
+   "KeyW": "0x5A",
+   "KeyE": "0x45",
+   "KeyR": "0x52",
+   "KeyT": "0x54",
+   "KeyY": "0x59",
+   "KeyU": "0x55",
+   "KeyI": "0x49",
+   "KeyO": "0x4F",
+   "KeyP": "0x50",
+   "BracketLeft": "0xBD",
+   "BracketRight": "0xBB",
+   "KeyA": "0x51",
+   "KeyS": "0x53",
+   "KeyD": "0x44",
+   "KeyF": "0x46",
+   "KeyG": "0x47",
+   "KeyH": "0x48",
+   "KeyJ": "0x4A",
+   "KeyK": "0x4B",
+   "KeyL": "0x4C",
+   "Semicolon": "0x4D",
+   "Quote": "0xDB",
+   "Backslash": "0xDC",
+   "IntlBackslash": "0xE2",
+   "KeyZ": "0x57",
+   "KeyX": "0x58",
+   "KeyC": "0x43",
+   "KeyV": "0x56",
+   "KeyB": "0x42",
+   "KeyN": "0x4E",
+   "KeyM": "0xBE",
+   "Comma": "0xBC",
+   "Period": "0xBF",
+   "Slash": "0xBA",
+   "Space": "0x20"
+  },
+  "capsAttributes": {
+   "Backquote": [],
+   "Digit1": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "Digit2": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "Digit3": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "Digit4": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "Digit5": [
+    "CAPLOK"
+   ],
+   "Digit6": [
+    "CAPLOK"
+   ],
+   "Digit7": [
+    "CAPLOK"
+   ],
+   "Digit8": [
+    "CAPLOK"
+   ],
+   "Digit9": [
+    "CAPLOK"
+   ],
+   "Digit0": [
+    "CAPLOK"
+   ],
+   "Minus": [],
+   "Equal": [],
+   "KeyQ": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyW": [
+    "CAPLOK"
+   ],
+   "KeyE": [
+    "CAPLOK"
+   ],
+   "KeyR": [
+    "CAPLOK"
+   ],
+   "KeyT": [
+    "CAPLOK"
+   ],
+   "KeyY": [
+    "CAPLOK"
+   ],
+   "KeyU": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyI": [
+    "CAPLOK"
+   ],
+   "KeyO": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyP": [
+    "CAPLOK"
+   ],
+   "BracketLeft": [],
+   "BracketRight": [],
+   "KeyA": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyS": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyD": [
+    "CAPLOK"
+   ],
+   "KeyF": [
+    "CAPLOK"
+   ],
+   "KeyG": [
+    "CAPLOK"
+   ],
+   "KeyH": [
+    "CAPLOK"
+   ],
+   "KeyJ": [
+    "CAPLOK"
+   ],
+   "KeyK": [
+    "CAPLOK"
+   ],
+   "KeyL": [
+    "CAPLOK"
+   ],
+   "Semicolon": [
+    "CAPLOK"
+   ],
+   "Quote": [],
+   "Backslash": [],
+   "IntlBackslash": [],
+   "KeyZ": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyX": [
+    "CAPLOK"
+   ],
+   "KeyC": [
+    "CAPLOK",
+    "CAPLOKALTGR"
+   ],
+   "KeyV": [
+    "CAPLOK"
+   ],
+   "KeyB": [
+    "CAPLOK"
+   ],
+   "KeyN": [
+    "CAPLOK"
+   ],
+   "KeyM": [],
+   "Comma": [],
+   "Period": [],
+   "Slash": [],
+   "Space": []
+  },
+  "capsSummary": {
+   "aucun": [
+    "Backquote",
+    "Minus",
+    "Equal",
+    "BracketLeft",
+    "BracketRight",
+    "Quote",
+    "Backslash",
+    "IntlBackslash",
+    "KeyM",
+    "Comma",
+    "Period",
+    "Slash",
+    "Space"
+   ],
+   "CAPLOK+CAPLOKALTGR": [
+    "Digit1",
+    "Digit2",
+    "Digit3",
+    "Digit4",
+    "KeyQ",
+    "KeyU",
+    "KeyO",
+    "KeyA",
+    "KeyS",
+    "KeyZ",
+    "KeyC"
+   ],
+   "CAPLOK": [
+    "Digit5",
+    "Digit6",
+    "Digit7",
+    "Digit8",
+    "Digit9",
+    "Digit0",
+    "KeyW",
+    "KeyE",
+    "KeyR",
+    "KeyT",
+    "KeyY",
+    "KeyI",
+    "KeyP",
+    "KeyD",
+    "KeyF",
+    "KeyG",
+    "KeyH",
+    "KeyJ",
+    "KeyK",
+    "KeyL",
+    "Semicolon",
+    "KeyX",
+    "KeyV",
+    "KeyB",
+    "KeyN"
+   ]
+  }
+ },
+ "keymap": {
+  "Backquote": [
+   "@",
+   "#",
+   "@",
+   "#",
+   "dk_breve",
+   "dk_inverted_breve",
+   "dk_breve",
+   "dk_inverted_breve"
+  ],
+  "Digit1": [
+   "à",
+   "1",
+   "1",
+   "à",
+   "§",
+   "À",
+   "À",
+   "§"
+  ],
+  "Digit2": [
+   "é",
+   "2",
+   "2",
+   "é",
+   "dk_acute",
+   "É",
+   "É",
+   "dk_acute"
+  ],
+  "Digit3": [
+   "è",
+   "3",
+   "3",
+   "è",
+   "dk_grave",
+   "È",
+   "È",
+   "dk_grave"
+  ],
+  "Digit4": [
+   "ê",
+   "4",
+   "4",
+   "ê",
+   "&",
+   "Ê",
+   "Ê",
+   "&"
+  ],
+  "Digit5": [
+   "(",
+   "5",
+   "5",
+   "(",
+   "[",
+   "dk_double_acute",
+   "[",
+   "dk_double_acute"
+  ],
+  "Digit6": [
+   ")",
+   "6",
+   "6",
+   ")",
+   "]",
+   "dk_double_grave",
+   "]",
+   "dk_double_grave"
+  ],
+  "Digit7": [
+   "‘",
+   "7",
+   "7",
+   "‘",
+   "dk_macron",
+   null,
+   "dk_macron",
+   null
+  ],
+  "Digit8": [
+   "’",
+   "8",
+   "8",
+   "’",
+   "_",
+   "—",
+   "_",
+   "—"
+  ],
+  "Digit9": [
+   "«",
+   "9",
+   "9",
+   "«",
+   "“",
+   "‹",
+   "“",
+   "‹"
+  ],
+  "Digit0": [
+   "»",
+   "0",
+   "0",
+   "»",
+   "”",
+   "›",
+   "”",
+   "›"
+  ],
+  "Minus": [
+   "'",
+   "\"",
+   "'",
+   "\"",
+   "°",
+   "dk_ring_above",
+   "°",
+   "dk_ring_above"
+  ],
+  "Equal": [
+   "dk_circumflex",
+   "dk_diaeresis",
+   "dk_circumflex",
+   "dk_diaeresis",
+   "dk_caron",
+   null,
+   "dk_caron",
+   null
+  ],
+  "KeyQ": [
+   "a",
+   "A",
+   "A",
+   "a",
+   "æ",
+   "Æ",
+   "Æ",
+   "æ"
+  ],
+  "KeyW": [
+   "z",
+   "Z",
+   "Z",
+   "z",
+   "£",
+   null,
+   "£",
+   null
+  ],
+  "KeyE": [
+   "e",
+   "E",
+   "E",
+   "e",
+   "€",
+   null,
+   "€",
+   null
+  ],
+  "KeyR": [
+   "r",
+   "R",
+   "R",
+   "r",
+   "®",
+   null,
+   "®",
+   null
+  ],
+  "KeyT": [
+   "t",
+   "T",
+   "T",
+   "t",
+   "{",
+   "™",
+   "{",
+   "™"
+  ],
+  "KeyY": [
+   "y",
+   "Y",
+   "Y",
+   "y",
+   "}",
+   null,
+   "}",
+   null
+  ],
+  "KeyU": [
+   "u",
+   "U",
+   "U",
+   "u",
+   "ù",
+   "Ù",
+   "Ù",
+   "ù"
+  ],
+  "KeyI": [
+   "i",
+   "I",
+   "I",
+   "i",
+   "dk_dot_above",
+   "dk_dot_below",
+   "dk_dot_above",
+   "dk_dot_below"
+  ],
+  "KeyO": [
+   "o",
+   "O",
+   "O",
+   "o",
+   "œ",
+   "Œ",
+   "Œ",
+   "œ"
+  ],
+  "KeyP": [
+   "p",
+   "P",
+   "P",
+   "p",
+   "%",
+   "‰",
+   "%",
+   "‰"
+  ],
+  "BracketLeft": [
+   "-",
+   "–",
+   "-",
+   "–",
+   "−",
+   "‑",
+   "−",
+   "‑"
+  ],
+  "BracketRight": [
+   "+",
+   "±",
+   "+",
+   "±",
+   "†",
+   "‡",
+   "†",
+   "‡"
+  ],
+  "KeyA": [
+   "q",
+   "Q",
+   "Q",
+   "q",
+   "θ",
+   "ϴ",
+   "ϴ",
+   "θ"
+  ],
+  "KeyS": [
+   "s",
+   "S",
+   "S",
+   "s",
+   "ß",
+   "ẞ",
+   "ẞ",
+   "ß"
+  ],
+  "KeyD": [
+   "d",
+   "D",
+   "D",
+   "d",
+   "$",
+   null,
+   "$",
+   null
+  ],
+  "KeyF": [
+   "f",
+   "F",
+   "F",
+   "f",
+   "dk_currencies",
+   null,
+   "dk_currencies",
+   null
+  ],
+  "KeyG": [
+   "g",
+   "G",
+   "G",
+   "g",
+   "dk_greek",
+   null,
+   "dk_greek",
+   null
+  ],
+  "KeyH": [
+   "h",
+   "H",
+   "H",
+   "h",
+   "dk_extended_latin",
+   "dk_macron_below",
+   "dk_extended_latin",
+   "dk_macron_below"
+  ],
+  "KeyJ": [
+   "j",
+   "J",
+   "J",
+   "j",
+   null,
+   null,
+   null,
+   null
+  ],
+  "KeyK": [
+   "k",
+   "K",
+   "K",
+   "k",
+   "dk_stroke",
+   null,
+   "dk_stroke",
+   null
+  ],
+  "KeyL": [
+   "l",
+   "L",
+   "L",
+   "l",
+   "|",
+   null,
+   "|",
+   null
+  ],
+  "Semicolon": [
+   "m",
+   "M",
+   "M",
+   "m",
+   "∞",
+   null,
+   "∞",
+   null
+  ],
+  "Quote": [
+   "/",
+   "\\",
+   "/",
+   "\\",
+   "÷",
+   "√",
+   "÷",
+   "√"
+  ],
+  "Backslash": [
+   "*",
+   "½",
+   "*",
+   "½",
+   "×",
+   "¼",
+   "×",
+   "¼"
+  ],
+  "IntlBackslash": [
+   "<",
+   ">",
+   "<",
+   ">",
+   "⩽",
+   "⩾",
+   "⩽",
+   "⩾"
+  ],
+  "KeyZ": [
+   "w",
+   "W",
+   "W",
+   "w",
+   "ʒ",
+   "Ʒ",
+   "Ʒ",
+   "ʒ"
+  ],
+  "KeyX": [
+   "x",
+   "X",
+   "X",
+   "x",
+   "©",
+   null,
+   "©",
+   null
+  ],
+  "KeyC": [
+   "c",
+   "C",
+   "C",
+   "c",
+   "ç",
+   "Ç",
+   "Ç",
+   "ç"
+  ],
+  "KeyV": [
+   "v",
+   "V",
+   "V",
+   "v",
+   "dk_cedilla",
+   "dk_ogonek",
+   "dk_cedilla",
+   "dk_ogonek"
+  ],
+  "KeyB": [
+   "b",
+   "B",
+   "B",
+   "b",
+   "dk_horizontal_stroke",
+   null,
+   "dk_horizontal_stroke",
+   null
+  ],
+  "KeyN": [
+   "n",
+   "N",
+   "N",
+   "n",
+   "dk_tilde",
+   null,
+   "dk_tilde",
+   null
+  ],
+  "KeyM": [
+   ".",
+   "?",
+   ".",
+   "?",
+   "¿",
+   null,
+   "¿",
+   null
+  ],
+  "Comma": [
+   ",",
+   "!",
+   ",",
+   "!",
+   "¡",
+   "dk_comma",
+   "¡",
+   "dk_comma"
+  ],
+  "Period": [
+   ":",
+   "…",
+   ":",
+   "…",
+   "·",
+   null,
+   "·",
+   null
+  ],
+  "Slash": [
+   ";",
+   "=",
+   ";",
+   "=",
+   "≃",
+   "≠",
+   "≃",
+   "≠"
+  ],
+  "Space": [
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   " "
+  ]
+ },
+ "deadkeys": {
+  "dk_breve": {
+   "A": "Ă",
+   "E": "Ĕ",
+   "G": "Ğ",
+   "I": "Ĭ",
+   "O": "Ŏ",
+   "U": "Ŭ",
+   "a": "ă",
+   "e": "ĕ",
+   "g": "ğ",
+   "i": "ĭ",
+   "o": "ŏ",
+   "u": "ŭ",
+   " ": "˘",
+   "˘": "˘"
+  },
+  "dk_inverted_breve": {
+   "A": "Ȃ",
+   "E": "Ȇ",
+   "I": "Ȋ",
+   "O": "Ȏ",
+   "R": "Ȓ",
+   "U": "Ȗ",
+   "a": "ȃ",
+   "e": "ȇ",
+   "i": "ȋ",
+   "o": "ȏ",
+   "r": "ȓ",
+   "u": "ȗ",
+   " ": "°",
+   "°": "°"
+  },
+  "dk_acute": {
+   "A": "Á",
+   "C": "Ć",
+   "E": "É",
+   "G": "Ǵ",
+   "I": "Í",
+   "K": "Ḱ",
+   "L": "Ĺ",
+   "M": "Ḿ",
+   "N": "Ń",
+   "O": "Ó",
+   "P": "Ṕ",
+   "R": "Ŕ",
+   "S": "Ś",
+   "U": "Ú",
+   "W": "Ẃ",
+   "Y": "Ý",
+   "Z": "Ź",
+   "a": "á",
+   "c": "ć",
+   "e": "é",
+   "g": "ǵ",
+   "i": "í",
+   "k": "ḱ",
+   "l": "ĺ",
+   "m": "ḿ",
+   "n": "ń",
+   "o": "ó",
+   "p": "ṕ",
+   "r": "ŕ",
+   "s": "ś",
+   "u": "ú",
+   "w": "ẃ",
+   "y": "ý",
+   "z": "ź",
+   "Æ": "Ǽ",
+   "æ": "ǽ",
+   " ": "´",
+   "´": "´"
+  },
+  "dk_grave": {
+   "A": "À",
+   "E": "È",
+   "I": "Ì",
+   "N": "Ǹ",
+   "O": "Ò",
+   "U": "Ù",
+   "W": "Ẁ",
+   "Y": "Ỳ",
+   "a": "à",
+   "e": "è",
+   "i": "ì",
+   "n": "ǹ",
+   "o": "ò",
+   "u": "ù",
+   "w": "ẁ",
+   "y": "ỳ",
+   " ": "`",
+   "`": "`"
+  },
+  "dk_double_acute": {
+   "O": "Ő",
+   "U": "Ű",
+   "o": "ő",
+   "u": "ű",
+   " ": "˝",
+   "˝": "˝"
+  },
+  "dk_double_grave": {
+   "A": "Ȁ",
+   "E": "Ȅ",
+   "I": "Ȉ",
+   "O": "Ȍ",
+   "R": "Ȑ",
+   "U": "Ȕ",
+   "a": "ȁ",
+   "e": "ȅ",
+   "i": "ȉ",
+   "o": "ȍ",
+   "r": "ȑ",
+   "u": "ȕ",
+   " ": "˵",
+   "˵": "˵"
+  },
+  "dk_macron": {
+   "A": "Ā",
+   "E": "Ē",
+   "G": "Ḡ",
+   "I": "Ī",
+   "O": "Ō",
+   "U": "Ū",
+   "Y": "Ȳ",
+   "a": "ā",
+   "e": "ē",
+   "g": "ḡ",
+   "i": "ī",
+   "o": "ō",
+   "u": "ū",
+   "y": "ȳ",
+   "Æ": "Ǣ",
+   "æ": "ǣ",
+   " ": "¯",
+   "¯": "¯"
+  },
+  "dk_ring_above": {
+   "A": "Å",
+   "U": "Ů",
+   "a": "å",
+   "u": "ů",
+   "w": "ẘ",
+   "y": "ẙ",
+   " ": "˚",
+   "˚": "˚"
+  },
+  "dk_circumflex": {
+   "A": "Â",
+   "C": "Ĉ",
+   "E": "Ê",
+   "G": "Ĝ",
+   "H": "Ĥ",
+   "I": "Î",
+   "J": "Ĵ",
+   "O": "Ô",
+   "S": "Ŝ",
+   "U": "Û",
+   "W": "Ŵ",
+   "Y": "Ŷ",
+   "Z": "Ẑ",
+   "a": "â",
+   "c": "ĉ",
+   "e": "ê",
+   "g": "ĝ",
+   "h": "ĥ",
+   "i": "î",
+   "j": "ĵ",
+   "o": "ô",
+   "s": "ŝ",
+   "u": "û",
+   "w": "ŵ",
+   "y": "ŷ",
+   "z": "ẑ",
+   "0": "⁰",
+   "1": "¹",
+   "2": "²",
+   "3": "³",
+   "4": "⁴",
+   "5": "⁵",
+   "6": "⁶",
+   "7": "⁷",
+   "8": "⁸",
+   "9": "⁹",
+   " ": "^",
+   "^": "^"
+  },
+  "dk_diaeresis": {
+   "A": "Ä",
+   "E": "Ë",
+   "H": "Ḧ",
+   "I": "Ï",
+   "O": "Ö",
+   "U": "Ü",
+   "W": "Ẅ",
+   "X": "Ẍ",
+   "Y": "Ÿ",
+   "a": "ä",
+   "e": "ë",
+   "h": "ḧ",
+   "i": "ï",
+   "o": "ö",
+   "t": "ẗ",
+   "u": "ü",
+   "w": "ẅ",
+   "x": "ẍ",
+   "y": "ÿ",
+   " ": "¨",
+   "¨": "¨"
+  },
+  "dk_caron": {
+   "A": "Ǎ",
+   "C": "Č",
+   "D": "Ď",
+   "E": "Ě",
+   "G": "Ǧ",
+   "H": "Ȟ",
+   "I": "Ǐ",
+   "K": "Ǩ",
+   "L": "Ľ",
+   "N": "Ň",
+   "O": "Ǒ",
+   "R": "Ř",
+   "S": "Š",
+   "T": "Ť",
+   "U": "Ǔ",
+   "Z": "Ž",
+   "Ʒ": "Ǯ",
+   "a": "ǎ",
+   "c": "č",
+   "d": "ď",
+   "e": "ě",
+   "g": "ǧ",
+   "h": "ȟ",
+   "i": "ǐ",
+   "j": "ǰ",
+   "k": "ǩ",
+   "l": "ľ",
+   "n": "ň",
+   "o": "ǒ",
+   "r": "ř",
+   "s": "š",
+   "t": "ť",
+   "u": "ǔ",
+   "z": "ž",
+   "ʒ": "ǯ",
+   "0": "₀",
+   "1": "₁",
+   "2": "₂",
+   "3": "₃",
+   "4": "₄",
+   "5": "₅",
+   "6": "₆",
+   "7": "₇",
+   "8": "₈",
+   "9": "₉",
+   " ": "ˇ",
+   "ˇ": "ˇ"
+  },
+  "dk_dot_above": {
+   "A": "Ȧ",
+   "B": "Ḃ",
+   "C": "Ċ",
+   "D": "Ḋ",
+   "E": "Ė",
+   "F": "Ḟ",
+   "G": "Ġ",
+   "H": "Ḣ",
+   "I": "İ",
+   "L": "Ŀ",
+   "M": "Ṁ",
+   "N": "Ṅ",
+   "O": "Ȯ",
+   "P": "Ṗ",
+   "R": "Ṙ",
+   "S": "Ṡ",
+   "T": "Ṫ",
+   "W": "Ẇ",
+   "X": "Ẋ",
+   "Y": "Ẏ",
+   "Z": "Ż",
+   "a": "ȧ",
+   "b": "ḃ",
+   "c": "ċ",
+   "d": "ḋ",
+   "e": "ė",
+   "f": "ḟ",
+   "g": "ġ",
+   "h": "ḣ",
+   "i": "ı",
+   "l": "ŀ",
+   "m": "ṁ",
+   "n": "ṅ",
+   "o": "ȯ",
+   "p": "ṗ",
+   "r": "ṙ",
+   "s": "ṡ",
+   "t": "ṫ",
+   "w": "ẇ",
+   "x": "ẋ",
+   "y": "ẏ",
+   "z": "ż",
+   "ſ": "ẛ",
+   " ": "˙",
+   "˙": "˙"
+  },
+  "dk_dot_below": {
+   "A": "Ạ",
+   "B": "Ḅ",
+   "D": "Ḍ",
+   "E": "Ẹ",
+   "H": "Ḥ",
+   "I": "Ị",
+   "K": "Ḳ",
+   "L": "Ḷ",
+   "M": "Ṃ",
+   "N": "Ṇ",
+   "O": "Ọ",
+   "R": "Ṛ",
+   "S": "Ṣ",
+   "T": "Ṭ",
+   "U": "Ụ",
+   "V": "Ṿ",
+   "W": "Ẉ",
+   "Y": "Ỵ",
+   "Z": "Ẓ",
+   "a": "ạ",
+   "b": "ḅ",
+   "d": "ḍ",
+   "e": "ẹ",
+   "h": "ḥ",
+   "i": "ị",
+   "k": "ḳ",
+   "l": "ḷ",
+   "m": "ṃ",
+   "n": "ṇ",
+   "o": "ọ",
+   "r": "ṛ",
+   "s": "ṣ",
+   "t": "ṭ",
+   "u": "ụ",
+   "v": "ṿ",
+   "w": "ẉ",
+   "y": "ỵ",
+   "z": "ẓ",
+   " ": ".",
+   ".": "."
+  },
+  "dk_currencies": {
+   "A": "₳",
+   "B": "฿",
+   "C": "₵",
+   "D": "₯",
+   "F": "₣",
+   "L": "₤",
+   "M": "ℳ",
+   "P": "₧",
+   "R": "₹",
+   "S": "₷",
+   "T": "₮",
+   "b": "₿",
+   "c": "¢",
+   "d": "₫",
+   "e": "₠",
+   "f": "ƒ",
+   "g": "₲",
+   "h": "₴",
+   "k": "₭",
+   "l": "₺",
+   "m": "₥",
+   "n": "₦",
+   "p": "₱",
+   "r": "₽",
+   "s": "₪",
+   "t": "₸",
+   "w": "₩",
+   "y": "¥",
+   "|": "₾",
+   "%": "₰",
+   "®": "₨",
+   "Ç": "₡",
+   "ç": "₢",
+   "∞": "₼",
+   " ": "¤",
+   "¤": "¤"
+  },
+  "dk_greek": {
+   "A": "Α",
+   "B": "Β",
+   "C": "Ψ",
+   "D": "Δ",
+   "E": "Ε",
+   "F": "Φ",
+   "G": "Γ",
+   "H": "Η",
+   "I": "Ι",
+   "J": "Ξ",
+   "K": "Κ",
+   "L": "Λ",
+   "M": "Μ",
+   "N": "Ν",
+   "O": "Ο",
+   "P": "Π",
+   "R": "Ρ",
+   "S": "Σ",
+   "T": "Τ",
+   "U": "Θ",
+   "V": "Ω",
+   "X": "Χ",
+   "Y": "Υ",
+   "Z": "Ζ",
+   "a": "α",
+   "b": "β",
+   "c": "ψ",
+   "d": "δ",
+   "e": "ε",
+   "f": "φ",
+   "g": "γ",
+   "h": "η",
+   "i": "ι",
+   "j": "ξ",
+   "k": "κ",
+   "l": "λ",
+   "m": "μ",
+   "n": "ν",
+   "o": "ο",
+   "p": "π",
+   "r": "ρ",
+   "s": "σ",
+   "t": "τ",
+   "u": "θ",
+   "v": "ω",
+   "w": "ς",
+   "x": "χ",
+   "y": "υ",
+   "z": "ζ",
+   " ": "µ",
+   "µ": "µ"
+  },
+  "dk_extended_latin": {
+   "'": "ʼ",
+   "0": "«",
+   "7": "›",
+   "8": "‹",
+   "9": "»",
+   "<": "≤",
+   ">": "≥",
+   "D": "Ð",
+   "E": "Ə",
+   "G": "Ŋ",
+   "I": "İ",
+   "J": "Ĳ",
+   "T": "Þ",
+   "a": "ª",
+   "d": "ð",
+   "e": "ə",
+   "g": "ŋ",
+   "i": "ı",
+   "j": "ĳ",
+   "o": "º",
+   "s": "ſ",
+   "t": "þ",
+   " ": " ",
+   "‘": "‚",
+   "’": "‘",
+   "«": "„",
+   "»": "“",
+   " ": "ſ",
+   "ſ": "ſ"
+  },
+  "dk_macron_below": {
+   "B": "Ḇ",
+   "D": "Ḏ",
+   "K": "Ḵ",
+   "L": "Ḻ",
+   "N": "Ṉ",
+   "R": "Ṟ",
+   "T": "Ṯ",
+   "Z": "Ẕ",
+   "b": "ḇ",
+   "d": "ḏ",
+   "h": "ẖ",
+   "k": "ḵ",
+   "l": "ḻ",
+   "n": "ṉ",
+   "r": "ṟ",
+   "t": "ṯ",
+   "z": "ẕ",
+   " ": "ˍ",
+   "ˍ": "ˍ"
+  },
+  "dk_stroke": {
+   "A": "Ⱥ",
+   "C": "Ȼ",
+   "E": "Ɇ",
+   "L": "Ł",
+   "O": "Ø",
+   "T": "Ⱦ",
+   "c": "ȼ",
+   "e": "ɇ",
+   "l": "ł",
+   "o": "ø",
+   "ſ": "ẜ",
+   "=": "≠",
+   "≃": "≄",
+   "<": "≮",
+   ">": "≯",
+   "⩽": "≰",
+   "⩾": "≱",
+   " ": "/",
+   "/": "/"
+  },
+  "dk_cedilla": {
+   "C": "Ç",
+   "D": "Ḑ",
+   "E": "Ȩ",
+   "G": "Ģ",
+   "H": "Ḩ",
+   "K": "Ķ",
+   "L": "Ļ",
+   "N": "Ņ",
+   "R": "Ŗ",
+   "S": "Ş",
+   "T": "Ţ",
+   "c": "ç",
+   "d": "ḑ",
+   "e": "ȩ",
+   "g": "ģ",
+   "h": "ḩ",
+   "k": "ķ",
+   "l": "ļ",
+   "n": "ņ",
+   "r": "ŗ",
+   "s": "ş",
+   "t": "ţ",
+   " ": "¸",
+   "¸": "¸"
+  },
+  "dk_ogonek": {
+   "A": "Ą",
+   "E": "Ę",
+   "I": "Į",
+   "O": "Ǫ",
+   "U": "Ų",
+   "a": "ą",
+   "e": "ę",
+   "i": "į",
+   "o": "ǫ",
+   "u": "ų",
+   " ": "˛",
+   "˛": "˛"
+  },
+  "dk_horizontal_stroke": {
+   "B": "Ƀ",
+   "D": "Đ",
+   "G": "Ǥ",
+   "H": "Ħ",
+   "I": "Ɨ",
+   "J": "Ɉ",
+   "L": "Ƚ",
+   "R": "Ɍ",
+   "T": "Ŧ",
+   "U": "Ʉ",
+   "Y": "Ɏ",
+   "Z": "Ƶ",
+   "b": "ƀ",
+   "d": "đ",
+   "g": "ǥ",
+   "h": "ħ",
+   "j": "ɉ",
+   "l": "ƚ",
+   "r": "ɍ",
+   "t": "ŧ",
+   "y": "ɏ",
+   "z": "ƶ",
+   " ": "-",
+   "-": "-"
+  },
+  "dk_tilde": {
+   "A": "Ã",
+   "E": "Ẽ",
+   "I": "Ĩ",
+   "N": "Ñ",
+   "O": "Õ",
+   "U": "Ũ",
+   "V": "Ṽ",
+   "Y": "Ỹ",
+   "a": "ã",
+   "e": "ẽ",
+   "i": "ĩ",
+   "n": "ñ",
+   "o": "õ",
+   "u": "ũ",
+   "v": "ṽ",
+   "y": "ỹ",
+   "-": "≃",
+   "=": "≈",
+   "<": "≲",
+   ">": "≳",
+   " ": "~",
+   "~": "~"
+  },
+  "dk_comma": {
+   "S": "Ș",
+   "T": "Ț",
+   "s": "ș",
+   "t": "ț",
+   " ": ",",
+   ",": ","
+  }
+ },
+ "deadKeyInfo": {
+  "dk_breve": {
+   "symbol": "˘",
+   "codePoint": "U+02D8",
+   "unicodeName": "BREVE",
+   "windowsName": "BrÃ¨ve"
+  },
+  "dk_inverted_breve": {
+   "symbol": "°",
+   "codePoint": "U+00B0",
+   "unicodeName": "DEGREE SIGN",
+   "windowsName": "BrÃ¨ve renversÃ©e"
+  },
+  "dk_acute": {
+   "symbol": "´",
+   "codePoint": "U+00B4",
+   "unicodeName": "ACUTE ACCENT",
+   "windowsName": "Accent aigu"
+  },
+  "dk_grave": {
+   "symbol": "`",
+   "codePoint": "U+0060",
+   "unicodeName": "GRAVE ACCENT",
+   "windowsName": "Accent grave"
+  },
+  "dk_double_acute": {
+   "symbol": "˝",
+   "codePoint": "U+02DD",
+   "unicodeName": "DOUBLE ACUTE ACCENT",
+   "windowsName": "Accent double aigu"
+  },
+  "dk_double_grave": {
+   "symbol": "˵",
+   "codePoint": "U+02F5",
+   "unicodeName": "MODIFIER LETTER MIDDLE DOUBLE GRAVE ACCENT",
+   "windowsName": "Accent double grave"
+  },
+  "dk_macron": {
+   "symbol": "¯",
+   "codePoint": "U+00AF",
+   "unicodeName": "MACRON",
+   "windowsName": "Macron"
+  },
+  "dk_ring_above": {
+   "symbol": "˚",
+   "codePoint": "U+02DA",
+   "unicodeName": "RING ABOVE",
+   "windowsName": "Rond en chef"
+  },
+  "dk_circumflex": {
+   "symbol": "^",
+   "codePoint": "U+005E",
+   "unicodeName": "CIRCUMFLEX ACCENT",
+   "windowsName": "Accent circonflexe"
+  },
+  "dk_diaeresis": {
+   "symbol": "¨",
+   "codePoint": "U+00A8",
+   "unicodeName": "DIAERESIS",
+   "windowsName": "TrÃ©ma"
+  },
+  "dk_caron": {
+   "symbol": "ˇ",
+   "codePoint": "U+02C7",
+   "unicodeName": "CARON",
+   "windowsName": "Caron"
+  },
+  "dk_dot_above": {
+   "symbol": "˙",
+   "codePoint": "U+02D9",
+   "unicodeName": "DOT ABOVE",
+   "windowsName": "Point en chef"
+  },
+  "dk_dot_below": {
+   "symbol": ".",
+   "codePoint": "U+002E",
+   "unicodeName": "FULL STOP",
+   "windowsName": "Point souscrit"
+  },
+  "dk_currencies": {
+   "symbol": "¤",
+   "codePoint": "U+00A4",
+   "unicodeName": "CURRENCY SIGN",
+   "windowsName": "Symboles monÃ©taires"
+  },
+  "dk_greek": {
+   "symbol": "µ",
+   "codePoint": "U+00B5",
+   "unicodeName": "MICRO SIGN",
+   "windowsName": "Lettres grecques"
+  },
+  "dk_extended_latin": {
+   "symbol": "ſ",
+   "codePoint": "U+017F",
+   "unicodeName": "LATIN SMALL LETTER LONG S",
+   "windowsName": "CaractÃ¨res europÃ©ens additionnels"
+  },
+  "dk_macron_below": {
+   "symbol": "ˍ",
+   "codePoint": "U+02CD",
+   "unicodeName": "MODIFIER LETTER LOW MACRON",
+   "windowsName": "Macron souscrit"
+  },
+  "dk_stroke": {
+   "symbol": "/",
+   "codePoint": "U+002F",
+   "unicodeName": "SOLIDUS",
+   "windowsName": "Barre oblique couvrante"
+  },
+  "dk_cedilla": {
+   "symbol": "¸",
+   "codePoint": "U+00B8",
+   "unicodeName": "CEDILLA",
+   "windowsName": "CÃ©dille"
+  },
+  "dk_ogonek": {
+   "symbol": "˛",
+   "codePoint": "U+02DB",
+   "unicodeName": "OGONEK",
+   "windowsName": "Ogonek"
+  },
+  "dk_horizontal_stroke": {
+   "symbol": "-",
+   "codePoint": "U+002D",
+   "unicodeName": "HYPHEN-MINUS",
+   "windowsName": "Barre couvrante"
+  },
+  "dk_tilde": {
+   "symbol": "~",
+   "codePoint": "U+007E",
+   "unicodeName": "TILDE",
+   "windowsName": "Tilde"
+  },
+  "dk_comma": {
+   "symbol": ",",
+   "codePoint": "U+002C",
+   "unicodeName": "COMMA",
+   "windowsName": "Virgule souscrite"
+  }
+ }
+}

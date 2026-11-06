@@ -1,0 +1,19 @@
+// Worker Cloudflare d'AZERTY Coach : point MCP public sur https://mcp.azerty.global/mcp, en lecture seule,
+// sans liaison (ni stockage, ni base, ni secret). L'identifiant du compte Cloudflare n'est pas écrit ici,
+// il vient de la session wrangler (CLOUDFLARE_ACCOUNT_ID).
+// Déploiement seulement sur accord d'Antoine, après la revue de sécurité.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "azerty-coach",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-09-30",
+  // Un seul hôte public : pas d'adresse workers.dev, pas d'URL de préversion.
+  "routes": [{ "pattern": "mcp.azerty.global", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  // wrangler dev passe `http://…` au Worker par défaut, que src/worker/https.ts redirigerait en boucle.
+  "dev": { "upstream_protocol": "https" },
+  // Les seules lignes du Worker (méthode JSON-RPC, outil, statut ; jamais le texte de l'utilisateur) : pas de
+  // journaux d'invocation (métadonnées de requête), pas de traces.
+  "observability": { "enabled": true, "logs": { "invocation_logs": false }, "traces": { "enabled": false } }
+}
